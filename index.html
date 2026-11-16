@@ -119,7 +119,7 @@ var SURVEY = [
   {type:"radio", id:"q3", title:"您单次外卖通常要等多久", options:["15分钟以内","15～30分钟","30～45分钟","45分钟以上"]},
   {type:"section", title:"第二部分　对无人机配送的认知与态度"},
   {type:"radio", id:"q4", title:"您对无人机外卖配送的了解程度", options:["完全不了解","听说过但不了解","一般","比较了解","非常了解"]},
-  {type:"likert", title:"以下题目请按您的真实感受选择", hint:"1＝非常不同意，5＝非常同意", items:[
+  {type:"likert", id:"lk1", title:"以下题目请按您的真实感受选择", hint:"1＝非常不同意，5＝非常同意", items:[
     ["a1","与骑手配送相比，无人机配送能更快把外卖送到"],
     ["a2","无人机配送不受地面交通拥堵影响，送达时间更可靠"],
     ["a3","无人机配送很适合校园、写字楼这类集中配送的场景"],
@@ -139,7 +139,7 @@ var SURVEY = [
     ["p2","只要无人机配送的配送费明显高于骑手配送，我就会放弃使用"]
   ]},
   {type:"section", title:"第三部分　使用意愿"},
-  {type:"likert", title:"请继续按您的真实想法选择", hint:"1＝非常不同意，5＝非常同意", items:[
+  {type:"likert", id:"lk2", title:"请继续按您的真实想法选择", hint:"1＝非常不同意，5＝非常同意", items:[
     ["in1","我愿意在不久的将来尝试无人机配送"],
     ["in2","我会向朋友推荐无人机配送"],
     ["in3","如果第一次体验不错，我会继续使用无人机配送"]
@@ -321,10 +321,6 @@ function validate(){
     else if(b.type==="multi")ok=(ANS[b.id]||[]).length>0;
     else if(b.type==="likert")ok=b.items.every(function(it){return typeof ANS[it[0]]==="number";});
     if(!ok&&el)bad.push(el);
-    else if(b.type==="likert"){
-      var miss=b.items.filter(function(it){return typeof ANS[it[0]]!=="number";});
-      if(miss.length){var li=el.querySelector(".likert-item");if(li)bad.push(el);}
-    }
   });
   if(bad.length){
     bad[0].classList.add("bad");
